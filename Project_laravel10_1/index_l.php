@@ -219,7 +219,9 @@ dd( DB::table("profiles")->where([
 
 // VIdeo      V64
 // Liste Profile (web services)
-// php artisan make:co ntroller Api/ProfileController --model=profile --api     
+// php artisan make:co ntroller Api/ProfileController --model=profile --api  
+// php artisan make:controller Admin\CategorieController --model=Categorie
+// Pour Creer Contorller Pour Model Categorie   v2 ecom (5)
 // Dans Route(web) api.php aouter 
 // Route::apiResource("profiles",ProfileController::class);//ProfileContr de api
 // public function index()
@@ -589,6 +591,7 @@ if (Auth::attempt($valus)) {
 //Routes == Route::get('/profiles/{profile}
 //Routes == Route::get('/profiles/{profile:email}
 // getRouteKeyName() : string{  return "id"; default
+// Attension  '/profiles/{profile} meme dans action delete update eedite 
 
 
 // VIdeo      V28
@@ -718,6 +721,7 @@ if (Auth::attempt($valus)) {
 // cd formation_mo_ja/
 // php artisan          ===> all cmd
 // php artisan  serve    ===> lance le serveur
+// php artisan optimize:clear  (all cache delete)
 // Instal           v3
 // Routage          v6
 /****************************** 
