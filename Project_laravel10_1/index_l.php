@@ -1,6 +1,7 @@
 <?php
 echo "laravel";
 // Ecom 1
+// .env  APP_DEBUG=true
 // composer require barryvdh/laravel-debugbar 
 //pour Les requetes sql sur console
 
@@ -225,6 +226,8 @@ dd( DB::table("profiles")->where([
 // Dans Route(web) api.php aouter 
 // Route::apiResource("profiles",ProfileController::class);//ProfileContr de api
 // public function index()
+// $produits=Produit::query()->with('function de hasMny')->paginate(12);
+// pour dimine les requettes 
 // { $profiles=profile::all();
 // $products =Produit::query()->paginate(3);
 // {{ $products->links()}}// buttons bootsreap
@@ -305,7 +308,13 @@ dd( DB::table("profiles")->where([
 // public function Profile_Pub() {   
     // return $this->belongsTo(profile::class,"Profile_id");
 // } 
-
+// dans create
+/*
+ @foreach ($categories as $categorie) 
+      <option   @selected(old('categorie_id') == $categorie->id) value="{{$categorie->id}}">{{$categorie->Name}}</option>
+    @endforeach
+  
+**/
 
 
 // VIdeo      V58
