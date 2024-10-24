@@ -5,7 +5,10 @@ echo "laravel";
 // composer require barryvdh/laravel-debugbar 
 //pour Les requetes sql sur console
 
-
+/************************** */
+// middleware 
+// composer require laravel/breeze
+// php artisan breeze:install
 
 
 
@@ -434,7 +437,7 @@ dd( DB::table("profiles")->where([
 // protected function redirectTo(Request $request): ?string
 // {  return $request->expectsJson() ? null : route('login.show');
 // dans Route  ->middleware("auth");Ou dans Controller constructor
-
+// php artisan make:middlewere NomMiddlewere
 
 
 
