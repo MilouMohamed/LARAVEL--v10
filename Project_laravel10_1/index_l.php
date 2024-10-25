@@ -1,6 +1,12 @@
 <?php
 echo "laravel";
 // Ecom 1
+// v4
+// composer require laravel/ui "4.2.2"
+// php artisan ui bootstrap --auth
+// npm install && npm run dev    
+
+// v1
 // .env  APP_DEBUG=true
 // composer require barryvdh/laravel-debugbar 
 //pour Les requetes sql sur console
