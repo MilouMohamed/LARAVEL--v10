@@ -5,6 +5,13 @@ echo "laravel";
 // composer require laravel/ui "4.2.2"
 // php artisan ui bootstrap --auth
 // npm install && npm run dev    
+// npm run dev pour files scss
+
+// v 4  20.20 Pour Rederege si connecter  
+// authenticated  // Pour une rederection vers Des Pages Dashboard
+// namespace App\Http\Controllers\Auth; LoginController redefinision ici 
+// namespace Illuminate\Foundation\Auth; func authenticated
+
 
 // v1
 // .env  APP_DEBUG=true
