@@ -1,6 +1,42 @@
 <?php
 echo "laravel";
 // Ecom 1
+// v5 filters 
+/*use Illuminate\Http\Request;
+function index(Request $request)
+    {  // $produits=Produit::query()->orderBy("created_at","desc")->limit(3)->get(); 
+        $produitsQuery = Produit::query();
+        $name = $request->input("Name"); 
+        if ($name != null) { 
+             $produitsQuery->where("Name","like","%{$name}%");   }
+ 
+        $produits = $produitsQuery->get();
+*/
+/*
+dasn Controller (Jointure Inner Join )
+ $categories = Categorie::query()->with("produits")->has("produits")->get();
+
+ <input  @checked(in_array(  $categorie->id,$categIdSelected)) class="form-check-input" type="checkbox" value="{{ $categorie->id }}" id="category_{{ $key }}"
+        name="categories[]" />
+        
+
+dans view 
+@foreach ($categories as $key => $categorie)
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" 
+               value="{{ $categorie->id }}" 
+               id="category_{{ $key }}" 
+               name="categories[]"/> <!-- Utilisation de "categories[]" pour obtenir un tableau en PHP -->
+        <label class="form-check-label" for="category_{{ $key }}">
+            {{ $categorie->Name }} <!-- Affichage du nom de la catégorie -->
+        </label>
+    </div>
+@endforeach
+
+*/
+
+
+// Ecom 1
 // v4
 // composer require laravel/ui "4.2.2"
 // php artisan ui bootstrap --auth
