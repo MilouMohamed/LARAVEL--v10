@@ -14,10 +14,20 @@ function index(Request $request)
 */
 /*
 dasn Controller (Jointure Inner Join )
- $categories = Categorie::query()->with("produits")->has("produits")->get();
+ $categories = Categorie::query()->with("produits")->has("produits")->get(); 
+        $categoriesSelected=$request->input("categoriesID"); 
+        if($categoriesSelected != null){ 
+            // $categories->wheres("categorie_id","in",$categoriesSelected);
+            $produitsQuery->whereIn("categorie_id",$categoriesSelected);
+        }
+         
+        
+        $produits = $produitsQuery->get();
 
  <input  @checked(in_array(  $categorie->id,$categIdSelected)) class="form-check-input" type="checkbox" value="{{ $categorie->id }}" id="category_{{ $key }}"
         name="categories[]" />
+
+$categoriesSelected=$request->input("categories"); 
         
 
 dans view 
@@ -797,3 +807,198 @@ if (Auth::attempt($valus)) {
                PATCH  selement nom
                PUT    selement nom et pren
         */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/******************************** */
+
+        /*
+
+<?php
+namespace App\Http\Controllers\User\Admin;
+
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\ProduitRequest;
+use App\Models\Categorie;
+use App\Models\Produit;
+use Illuminate\Http\Request;
+use View;
+
+class StorController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request)
+    {
+        // $produits=Produit::query()->orderBy("created_at","desc")->limit(3)->get(); 
+        $produits = Produit::query()->get();
+
+        $produits=Produit::pluck("prix")->all();
+        $min=min($produits);
+        $max=max($produits);
+ 
+        
+        $produitsQuery = Produit::query()->get();
+
+        $name = $request->input("Name");
+        if ($name != null) {
+            $produitsQuery->where("Name", "like", "%{$name}%");
+        }
+
+
+
+        $min = request()->input("min");
+        $max = request()->input("max");
+
+        if(!is_null($max)){
+            $max =0;
+        }
+
+
+
+        $categories = Categorie::query()->with("produits")->has("produits")->get();
+
+        $categoriesSelected = $request->input("categoriesID");
+        if ($categoriesSelected != null) {
+            // $categories->wheres("categorie_id","in",$categoriesSelected);
+            $produitsQuery->whereIn("categorie_id", $categoriesSelected);
+        }
+
+
+        $produits = $produitsQuery->get();
+
+        return View("store.index", compact("produits", "categories"));
+    }
+
+
+
+}
+
+
+*/
+/**************************************** */
+
+
+@extends ("layouts.app")
+
+@section("Titre", "Page Stor")
+
+@section("content") 
+<!-- <h1>-------- ----------- ----------- --------- -</h1> -->
+<div class="row">
+  <!-- $categories -->
+  <div class="col-md-2 sticky-top">
+
+    <form method="get" class="border  p-1">
+      <h2 class="fw-bolder" >Filters</h2>
+      <div class="form-group border p-1">
+        <label for="Name" class="form-label">Name : </label>
+        <input type="text" name="Name" id="Name" class="form-control" value="{{Request::input("Name")}}" />
+      </div>
+      <hr>
+      <div class="form-check  border p-1">
+      <h5 class="text-center border-bottom ">Categories</h5>
+        @php 
+         $categIdSelected = Request::input("categoriesID", []); 
+    @endphp 
+
+        @foreach ($categories as $key => $categorie)
+      <div class="form-check">
+        <input @checked(in_array($categorie->id, $categIdSelected)) class="form-check-input" type="checkbox"
+        value="{{ $categorie->id }}" id="category_{{ $key }}" name="categoriesID[]" />
+        <label class="form-check-label hand" for="category_{{ $key }}">
+        {{ $categorie->Name }}
+        </label>
+      </div>
+    @endforeach
+
+      </div>
+
+
+      <div class="form-group border p-1">
+      <h5 class="text-center border-bottom ">Prix</h5> 
+        <label for="min" class="form-label">Min : </label>
+        <input  min="0" type="number" name="min" id="min" class="form-control" value="{{Request::input("min")}}" />
+      </div>
+      <div class="form-group border p-1">
+        <label for="max" class="form-label">Max : </label>
+        <input max="2000000" step="10" type="number" name="max" id="max" class="form-control" value="{{Request::input("max")}}" />
+      </div>
+
+      
+
+      <div class="form-group mt-1">
+        <button type="submit" class="btn btn-primary w-100">Recherche</button>
+        <a href="/" class="btn btn-warning w-100 mt-1">Reset</a>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-10">
+
+    <div class="d-flex justify-content-between  align-items-center mt-4">
+
+      <h2>Liste Des Produits </h2>
+      <a href="{{route("produits.create")}}" class="btn btn-primary">Ajouter</a>
+    </div>
+    <hr>
+    @if (session()->has("Success"))
+    <div class="alert alert-success">
+      {{session()->get("Success")}}
+    </div>
+  @endif
+    <div class="row   g-5">
+      @forelse($produits as $prod)
+
+      <div class="col col-md-4">
+      <div class="card">
+        <img src="{{ asset("./storage/$prod->Image")}}" class="card-img-top" alt="No Image">
+        <div class="card-body">
+        <h5 class="card-title  " style="text-decoration:underline red 3px;">{{$prod->id}} | {{$prod->Name}} </h5>
+        <p class="card-text">
+          {!! str($prod->Description)->limit(120) !!}
+        </p>
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="badge text-bg-success"> Quantite : {{$prod->Qtt}} </span>
+          <span class="badge text-bg-info"> Prix : {{$prod->Prix}} MAD</span>
+        </div>
+        </div>
+        <div class="card-footer">
+        <small class="text-body-secondary">Last updated {{$prod->created_at}}</small>
+        </div>
+
+      </div>
+      </div>
+    @empty
+      <div class="m-auto w-100 mt-5   bg-warning  ">
+      <p class="text text-danger text-center  p-2 fs-1 fw-b ">Pas De Produits </p>
+      </div>
+    @endforelse
+
+
+    </div>
+  </div>
+
+</div>
+
+
+@endsection
